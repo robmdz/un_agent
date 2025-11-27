@@ -1,0 +1,115 @@
+:root {
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* Dark Theme (Default) */
+[data-theme='dark'] {
+  --color-primary: #414041;
+  --color-secondary: #76232F;
+  --color-background: #414041;
+  --color-text-primary: #FFFFFF;
+  --color-text-secondary: #FFFFFF;
+  --color-button-text: #FFFFFF;
+  --color-hover: #76232F;
+  --color-shadow: rgba(0, 0, 0, 0.2);
+}
+
+/* Light Theme */
+[data-theme='light'] {
+  --color-primary: #FFFFFF;
+  --color-secondary: #76232F;
+  --color-background: #FFFFFF;
+  --color-text-primary: #414041;
+  --color-text-secondary: #76232F;
+  --color-button-text: #76232F;
+  --color-hover: #76232F;
+  --color-shadow: rgba(0, 0, 0, 0.1);
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+  background-color: var(--color-background);
+  color: var(--color-text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#root {
+  padding-top: 80px;
+}
+
+a {
+  font-weight: 500;
+  color: var(--color-secondary);
+  text-decoration: inherit;
+  transition: color 0.3s ease;
+}
+
+a:hover {
+  color: var(--color-hover);
+}
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+  color: var(--color-text-primary);
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: var(--color-primary);
+  color: var(--color-text-primary);
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+button:hover {
+  background-color: var(--color-hover);
+  color: var(--color-text-primary);
+}
+
+button:focus,
+button:focus-visible {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 2px;
+}
+
+/* Theme Toggle Button */
+.theme-toggle {
+  background: transparent;
+  border: 2px solid var(--color-secondary);
+  color: var(--color-text-primary);
+  padding: 0.5rem 1rem;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.theme-toggle:hover {
+  background-color: var(--color-secondary);
+  color: var(--color-text-primary);
+}
+
+@media (max-width: 768px) {
+  #root {
+    padding-top: 70px;
+  }
+  
+  h1 {
+    font-size: 2em;
+  }
+}

@@ -8,3 +8,6 @@ Backend:
 https://docs.livekit.io/home/
 https://docs.python.org/3/
 https://fastapi.tiangolo.com/learn/
+
+Frontend steps:
+  npm install react-router-dom

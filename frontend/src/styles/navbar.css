@@ -1,0 +1,144 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 3rem;
+  background-color: var(--color-primary);
+  box-shadow: 0 2px 8px var(--color-shadow);
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  box-sizing: border-box;
+  transition: background-color 0.3s ease;
+}
+
+.navbar h1 {
+  font-size: 2rem;
+  margin: 0;
+  color: var(--color-text-primary);
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+.navbar h1 a {
+  color: var(--color-text-primary);
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.navbar h1 a:hover {
+  color: var(--color-secondary);
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.navbar ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  gap: 2rem;
+}
+
+.navbar li {
+  margin: 0;
+}
+
+.navbar a {
+  color: var(--color-text-primary);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.1rem;
+  transition: color 0.3s ease;
+}
+
+.navbar a:hover {
+  color: var(--color-secondary);
+}
+
+.theme-toggle {
+  background: transparent;
+  border: 2px solid var(--color-secondary);
+  color: var(--color-text-primary);
+  padding: 0.5rem 1rem;
+  font-size: 1.2rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  height: 44px;
+}
+
+.theme-toggle:hover {
+  background-color: var(--color-secondary);
+  color: var(--color-text-primary);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .navbar {
+    padding: 1rem 1.5rem;
+    flex-wrap: wrap;
+  }
+
+  .navbar h1 {
+    font-size: 1.5rem;
+  }
+
+  .navbar-right {
+    gap: 1rem;
+  }
+
+  .navbar ul {
+    gap: 1rem;
+    justify-content: flex-end;
+  }
+
+  .navbar a {
+    font-size: 1rem;
+  }
+
+  .theme-toggle {
+    font-size: 1rem;
+    padding: 0.4rem 0.8rem;
+    min-width: 40px;
+    height: 40px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0.75rem 1rem;
+  }
+
+  .navbar h1 {
+    font-size: 1.25rem;
+  }
+
+  .navbar-right {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .navbar ul {
+    gap: 0.75rem;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  .theme-toggle {
+    font-size: 0.9rem;
+    padding: 0.3rem 0.6rem;
+    min-width: 36px;
+    height: 36px;
+  }
+}

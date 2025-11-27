@@ -1,0 +1,48 @@
+.custom-button {
+  padding: 1rem 2.5rem;
+  font-size: 1.2rem;
+  font-weight: 600;
+  background-color: var(--color-primary);
+  color: var(--color-button-text);
+  border: 2px solid var(--color-secondary);
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px var(--color-shadow);
+  font-family: inherit;
+}
+
+.custom-button:hover {
+  background-color: var(--color-secondary);
+  color: #FFFFFF;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 12px var(--color-shadow);
+}
+
+.custom-button:active {
+  transform: translateY(0);
+}
+
+.custom-button:focus,
+.custom-button:focus-visible {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 2px;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .custom-button {
+    padding: 0.875rem 2rem;
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .custom-button {
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    width: 100%;
+    max-width: 300px;
+  }
+}
+

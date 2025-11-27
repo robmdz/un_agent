@@ -7,6 +7,7 @@ import Information from './pages/information'
 import Team from './pages/team'
 import VoiceAgent from './pages/voice_agent'
 import Form from './pages/form'
+import Register from './pages/register'
 import Footer from './components/footer'
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
             <Route path="/team" element={<Team />} />
             <Route path="/voice-agent" element={<VoiceAgent />} />
             <Route path="/form" element={<Form />} />
+            <Route path="/register" element={<Register />} />
           </Routes>
         </main>
         <Footer />

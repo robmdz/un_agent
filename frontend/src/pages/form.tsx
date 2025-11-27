@@ -14,7 +14,7 @@ const Form = () => {
   return (
     <div className="page-container">
       <div className="form-container">
-        <h1>Danos tu opinión</h1>
+      <h1>Danos tu opinión</h1>
         <form onSubmit={handleSubmit} className="feedback-form">
           
           {/* Pregunta 1 */}
@@ -118,7 +118,7 @@ const Form = () => {
           {/* Pregunta 8 */}
           <div className="form-group">
             <label>¿Qué otra información relacionada te gustaría que el chatbot te proporcionara?</label>
-            <textarea 
+        <textarea 
               name="other_info"
               rows={3}
               className="text-input"
@@ -126,10 +126,10 @@ const Form = () => {
           </div>
 
           <div className="form-actions">
-            <Button type="submit">Enviar</Button>
-            <Button onClick={() => navigate('/voice-agent')} className="secondary">Volver</Button>
-          </div>
-        </form>
+          <Button type="submit">Enviar</Button>
+          <Button onClick={() => navigate('/voice-agent')} className="secondary">Volver</Button>
+        </div>
+      </form>
       </div>
     </div>
   );

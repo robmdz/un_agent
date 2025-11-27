@@ -1,6 +1,6 @@
 .announcement-banner {
-  background-color: #ffffff; /* Always white background like Mobbin */
-  color: #000000; /* Always black text */
+  background-color: #ffffff;
+  color: #000000;
   padding: 0.75rem;
   text-align: center;
   font-size: 0.9rem;
@@ -28,10 +28,9 @@
   color: #000000;
   border: 1px solid #000000;
   padding: 0.15rem 0.6rem;
-  border-radius: 100px; /* Pill shape */
+  border-radius: 100px;
   font-size: 0.75rem;
   font-weight: 600;
-  text-transform: none; /* Keep as is, not uppercase */
 }
 
 .banner-link {
@@ -44,17 +43,8 @@
 }
 
 .banner-link:hover {
-  text-decoration: none; /* No underline on hover usually for this style */
+  text-decoration: none;
   opacity: 0.7;
-}
-
-.banner-arrow {
-  font-size: 1.1em;
-  transition: transform 0.2s ease;
-}
-
-.banner-link:hover .banner-arrow {
-  transform: translateX(3px);
 }
 
 .banner-close {
@@ -74,4 +64,3 @@
 .banner-close:hover {
   opacity: 1;
 }
-

@@ -10,40 +10,40 @@ function Navbar() {
 
     return (
         <>
-            <nav className="navbar">
+        <nav className="navbar">
                 <div className="navbar-content">
                     <div className="navbar-brand">
-                        <h1><Link to="/">UNparcero</Link></h1>
+            <h1><Link to="/">UNparcero</Link></h1>
                     </div>
                     
                     <div className="navbar-links">
                         <Link to="/information">Information</Link>
                         <Link to="/team">Team</Link>
-                    </div>
+            </div>
 
-                    <div className="navbar-right">
-                        <button 
-                            className={`theme-toggle ${theme}`} 
-                            onClick={toggleTheme} 
-                            aria-label="Toggle theme"
-                            title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
-                        >
-                            <span className="theme-toggle-thumb">
-                                <img src={contrastIcon} alt="" className="theme-icon" />
-                            </span>
-                        </button>
-                        <button 
-                            className={`hamburger ${isMenuOpen ? 'active' : ''}`}
-                            onClick={() => setIsMenuOpen(!isMenuOpen)}
-                            aria-label="Toggle menu"
-                        >
-                            <span className="bar"></span>
-                            <span className="bar"></span>
-                            <span className="bar"></span>
-                        </button>
+            <div className="navbar-right">
+                <button 
+                    className={`theme-toggle ${theme}`} 
+                    onClick={toggleTheme} 
+                    aria-label="Toggle theme"
+                    title={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
+                >
+                    <span className="theme-toggle-thumb">
+                        <img src={contrastIcon} alt="" className="theme-icon" />
+                    </span>
+                </button>
+                <button 
+                    className={`hamburger ${isMenuOpen ? 'active' : ''}`}
+                    onClick={() => setIsMenuOpen(!isMenuOpen)}
+                    aria-label="Toggle menu"
+                >
+                    <span className="bar"></span>
+                    <span className="bar"></span>
+                    <span className="bar"></span>
+                </button>
                     </div>
-                </div>
-            </nav>
+            </div>
+        </nav>
         </>
     )
 }

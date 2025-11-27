@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 import '../styles/banner.css';
 
 const Banner = () => {
@@ -10,9 +11,9 @@ const Banner = () => {
     <div className="announcement-banner">
       <div className="banner-content">
         <span className="banner-badge">New</span>
-        <a href="#" className="banner-link">
-          Regístrate para probar la siguiente versión <span className="banner-arrow">→</span>
-        </a>
+        <Link to="/register" className="banner-link">
+          Regístrate para probar la siguiente versión
+        </Link>
       </div>
       <button 
         className="banner-close" 
@@ -26,4 +27,3 @@ const Banner = () => {
 };
 
 export default Banner;
-

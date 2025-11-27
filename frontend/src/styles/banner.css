@@ -1,0 +1,77 @@
+.announcement-banner {
+  background-color: #ffffff; /* Always white background like Mobbin */
+  color: #000000; /* Always black text */
+  padding: 0.75rem;
+  text-align: center;
+  font-size: 0.9rem;
+  font-weight: 500;
+  border-bottom: 1px solid #eaeaea;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1001;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+.banner-content {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.banner-badge {
+  background-color: transparent;
+  color: #000000;
+  border: 1px solid #000000;
+  padding: 0.15rem 0.6rem;
+  border-radius: 100px; /* Pill shape */
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: none; /* Keep as is, not uppercase */
+}
+
+.banner-link {
+  color: #000000;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-weight: 500;
+}
+
+.banner-link:hover {
+  text-decoration: none; /* No underline on hover usually for this style */
+  opacity: 0.7;
+}
+
+.banner-arrow {
+  font-size: 1.1em;
+  transition: transform 0.2s ease;
+}
+
+.banner-link:hover .banner-arrow {
+  transform: translateX(3px);
+}
+
+.banner-close {
+  position: absolute;
+  right: 1.5rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #000000;
+  font-size: 1.2rem;
+  padding: 0.25rem;
+  line-height: 1;
+  opacity: 0.6;
+  transition: opacity 0.2s ease;
+}
+
+.banner-close:hover {
+  opacity: 1;
+}
+

@@ -45,7 +45,7 @@ body {
 }
 
 #root {
-  padding-top: 80px;
+  padding-top: 140px; /* Increased padding to account for banner + navbar */
   display: flex;
   flex-direction: column;
   min-height: 100vh;

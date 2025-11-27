@@ -49,7 +49,7 @@ const FAQ = () => {
               aria-expanded={activeIndex === index}
             >
               <span>{item.question}</span>
-              <span className="faq-icon">+</span>
+              <span className="faq-icon"><span>+</span></span>
             </button>
             <div className="faq-answer">
               <div className="faq-answer-content">

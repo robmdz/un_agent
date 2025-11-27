@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import { ThemeProvider } from './contexts/ThemeContext'
 import Navbar from './components/navbar'
+import Banner from './components/banner'
 import Home from './pages/home'
 import Information from './pages/information'
 import Team from './pages/team'
@@ -12,6 +13,7 @@ function App() {
   return (
     <ThemeProvider>
       <BrowserRouter>
+        <Banner />
         <Navbar />
         <main style={{ flex: 1, width: '100%' }}>
           <Routes>

@@ -6,10 +6,54 @@ import {
   VoiceAssistantControlBar,
   useRoomContext,
   useLocalParticipant,
+  useTrackToggle,
+  TrackToggle,
 } from '@livekit/components-react';
+import { Track } from 'livekit-client';
 import '@livekit/components-styles';
 import Button from '../components/button';
+import Modal from '../components/modal';
 import '../styles/voice-agent.css';
+
+// Componente personalizado de controles
+const CustomControlBar = ({ onDisconnect }: { onDisconnect: () => void }) => {
+  const room = useRoomContext();
+  const { isMicrophoneEnabled, localParticipant } = useLocalParticipant();
+
+  const toggleMicrophone = async () => {
+    if (localParticipant) {
+      const isMuted = !isMicrophoneEnabled;
+      await localParticipant.setMicrophoneEnabled(isMuted);
+    }
+  };
+
+  return (
+    <div className="custom-control-bar">
+      <button 
+        className={`control-button mic-button ${isMicrophoneEnabled ? 'active' : 'muted'}`}
+        onClick={toggleMicrophone}
+        title={isMicrophoneEnabled ? "Silenciar micrófono" : "Activar micrófono"}
+      >
+        {isMicrophoneEnabled ? (
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"></path><path d="M19 10v2a7 7 0 0 1-14 0v-2"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+        ) : (
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="1" y1="1" x2="23" y2="23"></line><path d="M9 9v3a3 3 0 0 0 5.12 2.12M15 9.34V4a3 3 0 0 0-5.94-.6"></path><path d="M17 16.95A7 7 0 0 1 5 12v-2m14 0v2a7 7 0 0 1-.11 1.23"></path><line x1="12" y1="19" x2="12" y2="23"></line><line x1="8" y1="23" x2="16" y2="23"></line></svg>
+        )}
+      </button>
+
+      <button 
+        className="control-button disconnect-button"
+        onClick={() => {
+          room?.disconnect();
+          onDisconnect();
+        }}
+        title="Desconectar"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M10.68 13.31a16 16 0 0 0 3.41 2.6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7 2 2 0 0 1 1.72 2v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.42 19.42 0 0 1-3.33-2.67m-2.67-3.34a19.79 19.79 0 0 1-3.07-8.63A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91"></path><line x1="23" y1="1" x2="1" y2="23"></line></svg>
+      </button>
+    </div>
+  );
+};
 
 // Component to visualize agent status and connection
 const AgentVisualizer = () => {
@@ -33,12 +77,12 @@ const AgentVisualizer = () => {
     updateState();
     room.on('connected', updateState);
     room.on('disconnected', updateState);
-    room.on('stateChanged', updateState);
+    room.on('connectionStateChanged', updateState);
 
     return () => {
       room.off('connected', updateState);
       room.off('disconnected', updateState);
-      room.off('stateChanged', updateState);
+      room.off('connectionStateChanged', updateState);
     };
   }, [room, isMicrophoneEnabled]);
 
@@ -62,7 +106,15 @@ const VoiceAgent = () => {
   const [token, setToken] = useState('');
   const [url, setUrl] = useState('');
   const [error, setError] = useState('');
+  const [showModal, setShowModal] = useState(false);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (token) {
+      // Mostrar el modal cuando el token está listo (usuario conectado)
+      setShowModal(true);
+    }
+  }, [token]);
 
   useEffect(() => {
     (async () => {
@@ -104,6 +156,14 @@ const VoiceAgent = () => {
 
   return (
     <div className="page-container">
+      <Modal 
+        isOpen={showModal} 
+        onClose={() => setShowModal(false)} 
+        title="¡Bienvenido a UNparcero!"
+      >
+        <p>Cuando termines tu consulta, por favor presiona el botón rojo de <strong>'Desconectar'</strong> y llena el breve formulario de opinión para ayudarnos a mejorar.</p>
+      </Modal>
+      
       <div className="voice-agent-container">
         <LiveKitRoom
           video={false}
@@ -121,13 +181,14 @@ const VoiceAgent = () => {
             display: 'flex', 
             flexDirection: 'column', 
             justifyContent: 'space-between',
-            padding: '2rem 0'
+            padding: '2rem 0',
+            overflow: 'visible' // Asegurar que nada corte el contenido
           }}>
             <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                <AgentVisualizer />
             </div>
-            <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
-              <VoiceAssistantControlBar />
+            <div style={{ display: 'flex', justifyContent: 'center', width: '100%', paddingBottom: '1rem' }}>
+              <CustomControlBar onDisconnect={() => navigate('/form')} />
             </div>
           </div>
           <RoomAudioRenderer />

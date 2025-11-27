@@ -2,16 +2,8 @@
   position: relative;
   width: 100%;
   max-width: 800px;
-  height: 500px;
+  height: 650px;
   margin: 2rem auto;
-  border-radius: 24px;
-  background: rgba(255, 255, 255, 0.03);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid rgba(118, 35, 47, 0.2);
-  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.1);
-  overflow: hidden;
-  transition: all 0.4s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -19,24 +11,12 @@
 }
 
 .voice-agent-container:hover {
-  border-color: var(--color-secondary);
-  box-shadow: 0 12px 40px 0 rgba(118, 35, 47, 0.15);
+  /* Removed hover effect since border/shadow are gone */
 }
 
-/* Futuristic grid background effect */
+/* Futuristic grid background effect - REMOVED */
 .voice-agent-container::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-image: 
-    linear-gradient(rgba(118, 35, 47, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(118, 35, 47, 0.05) 1px, transparent 1px);
-  background-size: 20px 20px;
-  z-index: 0;
-  pointer-events: none;
+  display: none;
 }
 
 .agent-content {
@@ -106,35 +86,66 @@
   margin-top: 1rem;
 }
 
-/* LiveKit Components Overrides */
-.lk-voice-assistant-control-bar {
-  background: rgba(0, 0, 0, 0.2) !important;
-  border-radius: 16px !important;
-  padding: 0.75rem !important;
-  backdrop-filter: blur(10px) !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  margin-bottom: 2rem !important;
+/* Custom Control Bar Styles */
+.custom-control-bar {
+  display: flex;
+  gap: 1.5rem;
+  padding: 1rem 2rem;
+  position: relative;
+  z-index: 10;
+  /* Removed background and backdrop-filter to show full buttons clearly */
+  background: transparent;
+  border: none;
+  box-shadow: none;
+  margin-top: -2rem; /* Move up slightly */
 }
 
-.lk-button {
-  background-color: rgba(255, 255, 255, 0.1) !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  transition: all 0.3s ease !important;
+.control-button {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: white;
 }
 
-.lk-button:hover {
-  background-color: var(--color-secondary) !important;
-  transform: translateY(-2px) !important;
-  box-shadow: 0 4px 12px rgba(118, 35, 47, 0.4) !important;
+.mic-button {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-.lk-disconnect-button {
-  background-color: rgba(220, 53, 69, 0.2) !important;
-  border-color: rgba(220, 53, 69, 0.5) !important;
+.mic-button:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: scale(1.05);
 }
 
-.lk-disconnect-button:hover {
-  background-color: #dc3545 !important;
+.mic-button.active {
+  background: var(--color-text-primary); /* Color claro cuando está activo */
+  color: var(--color-background);
+  box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
+}
+
+.mic-button.muted {
+  background: rgba(255, 255, 255, 0.05);
+  color: rgba(255, 255, 255, 0.5);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.disconnect-button {
+  background: rgba(220, 53, 69, 0.2);
+  border: 1px solid rgba(220, 53, 69, 0.4);
+  color: #ff6b6b;
+}
+
+.disconnect-button:hover {
+  background: #dc3545;
+  color: white;
+  transform: scale(1.1);
+  box-shadow: 0 4px 15px rgba(220, 53, 69, 0.4);
 }
 
 /* Animations */
@@ -175,5 +186,14 @@
     width: 100px;
     height: 100px;
   }
+  
+  .custom-control-bar {
+    padding: 0.75rem 1.5rem;
+    gap: 1rem;
+  }
+  
+  .control-button {
+    width: 50px;
+    height: 50px;
+  }
 }
-

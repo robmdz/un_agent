@@ -1,6 +1,6 @@
 const Team = () => {
   return (
-    <div>
+    <div className="page-container">
       <h1>Our Team</h1>
       <p>Meet the team.</p>
     </div>

@@ -19,6 +19,7 @@
   --color-button-text: #FFFFFF;
   --color-hover: #76232F;
   --color-shadow: rgba(0, 0, 0, 0.2);
+  --icon-filter: invert(1);
 }
 
 /* Light Theme */
@@ -31,6 +32,7 @@
   --color-button-text: #76232F;
   --color-hover: #76232F;
   --color-shadow: rgba(0, 0, 0, 0.1);
+  --icon-filter: none;
 }
 
 body {
@@ -44,6 +46,18 @@ body {
 
 #root {
   padding-top: 80px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.page-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 a {
@@ -83,25 +97,8 @@ button:hover {
 
 button:focus,
 button:focus-visible {
-  outline: 2px solid var(--color-secondary);
+  outline: 2px solid var(--color-text-primary);
   outline-offset: 2px;
-}
-
-/* Theme Toggle Button */
-.theme-toggle {
-  background: transparent;
-  border: 2px solid var(--color-secondary);
-  color: var(--color-text-primary);
-  padding: 0.5rem 1rem;
-  font-size: 0.9rem;
-  border-radius: 6px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-}
-
-.theme-toggle:hover {
-  background-color: var(--color-secondary);
-  color: var(--color-text-primary);
 }
 
 @media (max-width: 768px) {
@@ -111,5 +108,15 @@ button:focus-visible {
   
   h1 {
     font-size: 2em;
+  }
+
+  .page-container {
+    padding: 1.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .page-container {
+    padding: 1rem;
   }
 }

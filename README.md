@@ -11,3 +11,7 @@ https://fastapi.tiangolo.com/learn/
 
 Frontend steps:
   npm install react-router-dom
+
+Backend steps:
+
+pip install "fastapi[standard]"

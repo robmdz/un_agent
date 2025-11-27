@@ -8,6 +8,7 @@ const Home = () => {
   return (
     <div className="home-container">
       <Button onClick={() => navigate('/voice-agent')}>Hablar con UNparcero</Button>
+      <Button onClick={() => navigate('/form')}>Danos tu opinión</Button>
     </div>
   );
 };

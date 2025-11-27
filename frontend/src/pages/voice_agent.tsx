@@ -6,7 +6,6 @@ import {
   VoiceAssistantControlBar,
 } from '@livekit/components-react';
 import '@livekit/components-styles';
-import Button from '../components/button';
 
 const VoiceAgent = () => {
   const [token, setToken] = useState('');
@@ -59,16 +58,11 @@ const VoiceAgent = () => {
           serverUrl={url}
           data-lk-theme="default"
           style={{ height: '100%', width: '100%', display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+          onDisconnected={() => navigate('/form')}
         >
           <RoomAudioRenderer />
           <VoiceAssistantControlBar />
         </LiveKitRoom>
-      </div>
-      
-      <div style={{ marginTop: '2rem', textAlign: 'center' }}>
-        <Button onClick={() => navigate('/form')}>
-          Danos tu opinión
-        </Button>
       </div>
     </div>
   );

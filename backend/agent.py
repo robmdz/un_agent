@@ -3,15 +3,18 @@ from livekit.agents import Agent, AgentSession, JobContext, WorkerOptions, cli
 from livekit.plugins import noise_cancellation, silero, openai
 from livekit.plugins.turn_detector.multilingual import MultilingualModel
 from livekit.agents.voice import room_io
+import prompts  
 
 load_dotenv()
 
 class UnParceroAgent(Agent):
     def __init__(self):
-        super().__init__(instructions="Eres un asistente virtual de la universidad nacional de Colombia sede Medellín, ayudas a los usuarios a encontrar información sobre la universidad nacional de Colombia en especial de la sede Medellín y a resolver sus dudas académicas y de admisión.")
+        # Usamos la variable importada
+        super().__init__(instructions=prompts.AGENT_INSTRUCTIONS)
 
     async def on_enter(self):
-        await self.session.generate_reply(instructions="saluda y preguntale en que lo puedes ayudar con un estilo colombiano en especifico paisa")
+        # Usamos la variable importada
+        await self.session.generate_reply(instructions=prompts.GREETING_INSTRUCTIONS)
 
 async def entrypoint(ctx: JobContext):
     await ctx.connect()
@@ -24,7 +27,6 @@ async def entrypoint(ctx: JobContext):
         tts=openai.TTS(
             model="tts-1",
             voice="alloy",
-            instructions="actua de una forma amable y educada, pero con acento colombiano en especifico paisa"
         ),
     )
     

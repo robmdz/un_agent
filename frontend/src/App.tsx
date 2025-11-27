@@ -5,6 +5,7 @@ import Home from './pages/home'
 import Information from './pages/information'
 import Team from './pages/team'
 import VoiceAgent from './pages/voice_agent'
+import Form from './pages/form'
 import Footer from './components/footer'
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
             <Route path="/information" element={<Information />} />
             <Route path="/team" element={<Team />} />
             <Route path="/voice-agent" element={<VoiceAgent />} />
+            <Route path="/form" element={<Form />} />
           </Routes>
         </main>
         <Footer />

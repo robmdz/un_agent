@@ -127,7 +127,7 @@ const VoiceAgent = () => {
 
   useEffect(() => {
     (async () => {
-      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8080';
       try {
         // Use environment variable for API URL, fallback to localhost for development
         console.log('Connecting to backend at:', apiUrl);

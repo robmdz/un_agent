@@ -46,7 +46,7 @@ async def entrypoint(ctx: JobContext):
         llm=openai.LLM(model="gpt-4o-mini"), # Large Language Model para generar respuestas
         tts=openai.TTS(
             model="tts-1",
-            voice="alloy",
+            voice="ash",
         ), # Text-to-Speech para sintetizar la voz
     )
     

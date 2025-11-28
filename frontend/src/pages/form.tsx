@@ -1,5 +1,8 @@
 import { useNavigate } from 'react-router-dom';
+import { useState } from 'react';
 import Button from '../components/button';
+import Modal from '../components/modal';
+import { supabase } from '../lib/supabaseClient';
 import '../styles/form.css';
 
 /**
@@ -8,15 +11,64 @@ import '../styles/form.css';
  */
 const Form = () => {
   const navigate = useNavigate();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+  const [showErrorModal, setShowErrorModal] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    alert("Gracias por tu opinión!");
-    navigate('/');
+    setIsSubmitting(true);
+
+    const formData = new FormData(e.target as HTMLFormElement);
+    
+    const feedbackData = {
+      use_chatbot: formData.get('use_chatbot') as string,
+      ease_of_use: formData.get('ease_of_use') as string,
+      understanding: formData.get('understanding') as string,
+      guidance: formData.get('guidance') as string,
+      clarity: formData.get('clarity') as string,
+      satisfaction: parseInt(formData.get('satisfaction') as string),
+      improvements: formData.get('improvements') as string || null,
+      other_info: formData.get('other_info') as string || null,
+    };
+
+    try {
+      const { error } = await supabase
+        .from('feedback')
+        .insert([feedbackData]);
+
+      if (error) throw error;
+
+      setShowSuccessModal(true);
+    } catch (error) {
+      console.error('Error al guardar feedback:', error);
+      setShowErrorModal(true);
+    } finally {
+      setIsSubmitting(false);
+    }
   };
 
   return (
     <div className="page-container">
+      <Modal
+        isOpen={showSuccessModal}
+        onClose={() => {
+          setShowSuccessModal(false);
+          navigate('/');
+        }}
+        title="¡Gracias por tu Opinión!"
+      >
+        <p>Tu retroalimentación es muy valiosa para nosotros. Nos ayudará a mejorar UNparcero.</p>
+      </Modal>
+
+      <Modal
+        isOpen={showErrorModal}
+        onClose={() => setShowErrorModal(false)}
+        title="Error al Enviar"
+      >
+        <p>Hubo un error al enviar tu opinión. Por favor, intenta de nuevo.</p>
+      </Modal>
+
       <div className="form-container">
         <h1>Danos tu opinión</h1>
         <form onSubmit={handleSubmit} className="feedback-form">
@@ -130,8 +182,12 @@ const Form = () => {
           </div>
 
           <div className="form-actions">
-            <Button type="submit">Enviar</Button>
-            <Button onClick={() => navigate('/voice-agent')} className="secondary">Volver</Button>
+            <Button type="submit" disabled={isSubmitting}>
+              {isSubmitting ? 'Enviando...' : 'Enviar'}
+            </Button>
+            <Button onClick={() => navigate('/voice-agent')} className="secondary" disabled={isSubmitting}>
+              Volver
+            </Button>
           </div>
         </form>
       </div>

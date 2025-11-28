@@ -16,7 +16,7 @@ const Footer = () => {
         <div className="footer-right">
           <a href="/team">Team</a>
           <a href="/register" className="special-link-footer">
-            ✨ Nueva Versión
+            Nueva Versión
           </a>
         </div>
       </div>

@@ -27,6 +27,7 @@
 .footer-right {
   display: flex;
   gap: 1.5rem;
+  align-items: center;
 }
 
 .footer-right a {

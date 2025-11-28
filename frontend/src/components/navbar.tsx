@@ -23,7 +23,7 @@ function Navbar() {
                     <div className="navbar-links">
                         <Link to="/team">Team</Link>
                         <Link to="/register" className="special-link">
-                            ✨ Nueva Versión
+                            Nueva Versión
                         </Link>
                     </div>
 

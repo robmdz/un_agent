@@ -21,7 +21,7 @@ function Navbar() {
                     </div>
 
                     <div className="navbar-links">
-                        <Link to="/team">Team</Link>
+                        <Link to="/team">Equipo</Link>
                         <Link to="/register" className="special-link">
                             Nueva Versión
                         </Link>

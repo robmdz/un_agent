@@ -22,6 +22,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+@app.get("/")
+async def root():
+    """
+    Endpoint raíz para verificar que la API está funcionando.
+    """
+    return {"message": "UN Parcero API is running", "status": "ok"}
+
 @app.get("/getToken")
 async def get_token():
     """

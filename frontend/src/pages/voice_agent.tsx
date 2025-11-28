@@ -127,19 +127,21 @@ const VoiceAgent = () => {
 
   useEffect(() => {
     (async () => {
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
       try {
         // Use environment variable for API URL, fallback to localhost for development
-        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+        console.log('Connecting to backend at:', apiUrl);
+        
         const response = await fetch(`${apiUrl}/getToken`);
         if (!response.ok) {
-          throw new Error('Failed to fetch token');
+          throw new Error(`Failed to fetch token: ${response.statusText}`);
         }
         const data = await response.json();
         setToken(data.token);
         setUrl(data.url);
-      } catch (e) {
+      } catch (e: any) {
         console.error(e);
-        setError('No se pudo conectar con el servidor. Asegúrate de que el backend esté corriendo.');
+        setError(`No se pudo conectar con el servidor (${apiUrl}). Error: ${e.message || e}`);
       }
     })();
   }, []);
@@ -148,7 +150,10 @@ const VoiceAgent = () => {
     return (
       <div className="page-container" style={{ textAlign: 'center' }}>
         <h1 style={{ color: 'var(--color-secondary)' }}>Error de Conexión</h1>
-        <p>{error}</p>
+        <p style={{ marginBottom: '1rem' }}>{error}</p>
+        <p style={{ fontSize: '0.9rem', color: 'var(--color-text-secondary)' }}>
+            Si estás en móvil, asegúrate de que el backend esté desplegado en una URL pública (https).
+        </p>
         <Button onClick={() => window.location.reload()}>Reintentar</Button>
       </div>
     );

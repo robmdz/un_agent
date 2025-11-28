@@ -84,7 +84,7 @@ El backend maneja la lógica del agente y la autenticación.
 
 4.  Configura las variables de entorno. Crea un archivo `.env` en `backend/` y agrega:
     ```env
-    LIVEKIT_API_KEY=tu_api_key
+    LIVEKIT_API_KEY=tu_api_key 
     LIVEKIT_API_SECRET=tu_api_secret
     LIVEKIT_URL=tu_livekit_url
     OPENAI_API_KEY=tu_openai_key

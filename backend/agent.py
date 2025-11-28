@@ -6,8 +6,6 @@ from livekit.agents.voice import room_io
 import prompts
 from tools.maps import MapsService
 from tools.search import SearchService
-import sys
-import subprocess
 
 load_dotenv()
 
@@ -93,16 +91,4 @@ async def entrypoint(ctx: JobContext):
     )
     
 if __name__ == "__main__":
-    # Truco para Railway: Si el argumento es 'start', primero intentamos descargar
-    if "start" in sys.argv:
-        print("Verificando modelos necesarios...")
-        try:
-            # Ejecutamos el comando de descarga como subproceso
-            subprocess.run(["python", "agent.py", "download-files"], check=True)
-            print("Modelos verificados/descargados correctamente.")
-        except subprocess.CalledProcessError as e:
-            print(f"Advertencia: No se pudieron descargar los modelos automáticos: {e}")
-            # Continuamos igual, esperando que ya estén ahí o falle con error claro
-    
-    # Iniciar la aplicación normalmente
     cli.run_app(WorkerOptions(entrypoint_fnc=entrypoint))

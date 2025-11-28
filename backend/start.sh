@@ -1,5 +1,9 @@
 #!/bin/bash
 
+# Descargar modelos necesarios para el agente
+echo "Descargando modelos de LiveKit..."
+python agent.py download-files
+
 # Iniciar el agente de LiveKit en segundo plano
 echo "Iniciando Agente LiveKit..."
 python agent.py start &

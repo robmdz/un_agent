@@ -49,6 +49,13 @@ function Navbar() {
                         </button>
                     </div>
                 </div>
+
+                <div className={`mobile-menu ${isMenuOpen ? 'active' : ''}`}>
+                    <Link to="/team" onClick={() => setIsMenuOpen(false)}>Equipo</Link>
+                    <Link to="/register" className="special-link" onClick={() => setIsMenuOpen(false)}>
+                        Nueva Versión
+                    </Link>
+                </div>
             </nav>
         </>
     )

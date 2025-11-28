@@ -78,6 +78,13 @@ async def entrypoint(ctx: JobContext):
             voice="ash",
         ), # Text-to-Speech para sintetizar la voz
     )
+
+    @ctx.room.on("participant_disconnected")
+    def on_participant_disconnected(participant):
+        if len(ctx.room.remote_participants) == 0:
+            print("Last participant left, disconnecting agent")
+            import asyncio
+            asyncio.create_task(ctx.disconnect())
     
     # Inicia la sesión del agente en la sala
     await session.start(

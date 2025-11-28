@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from livekit import api
 import os
+import uuid
 from dotenv import load_dotenv
 
 load_dotenv()
@@ -42,13 +43,18 @@ async def get_token():
     if not LIVEKIT_API_KEY or not LIVEKIT_API_SECRET:
         return {"error": "LiveKit credentials not set"}
     
+    # Generar identificadores únicos para la sesión
+    session_id = str(uuid.uuid4())
+    room_name = f"un-parcero-{session_id}"
+    participant_identity = f"user_{session_id}"
+
     # Crear token de acceso con permisos para unirse a la sala
     token = api.AccessToken(LIVEKIT_API_KEY, LIVEKIT_API_SECRET) \
-        .with_identity("user_identity") \
+        .with_identity(participant_identity) \
         .with_name("User") \
         .with_grants(api.VideoGrants(
             room_join=True,
-            room="un-parcero-room",
+            room=room_name,
         ))
     
     return {"token": token.to_jwt(), "url": LIVEKIT_URL}

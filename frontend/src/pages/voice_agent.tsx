@@ -128,7 +128,9 @@ const VoiceAgent = () => {
   useEffect(() => {
     (async () => {
       try {
-        const response = await fetch('http://localhost:8000/getToken');
+        // Use environment variable for API URL, fallback to localhost for development
+        const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+        const response = await fetch(`${apiUrl}/getToken`);
         if (!response.ok) {
           throw new Error('Failed to fetch token');
         }
@@ -137,7 +139,7 @@ const VoiceAgent = () => {
         setUrl(data.url);
       } catch (e) {
         console.error(e);
-        setError('No se pudo conectar con el servidor. Asegúrate de que el backend esté corriendo en el puerto 8000.');
+        setError('No se pudo conectar con el servidor. Asegúrate de que el backend esté corriendo.');
       }
     })();
   }, []);

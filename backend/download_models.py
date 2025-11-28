@@ -1,5 +1,5 @@
 from livekit.plugins import silero
-from livekit.plugins.turn_detector import MultilingualModel
+from livekit.plugins.turn_detector.multilingual import MultilingualModel
 import os
 
 print("Iniciando descarga de modelos para LiveKit Agent...")

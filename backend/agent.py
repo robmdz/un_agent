@@ -1,9 +1,11 @@
 from dotenv import load_dotenv
-from livekit.agents import Agent, AgentSession, JobContext, WorkerOptions, cli
+from livekit.agents import Agent, AgentSession, JobContext, WorkerOptions, cli, function_tool, RunContext
 from livekit.plugins import noise_cancellation, silero, openai
 from livekit.plugins.turn_detector.multilingual import MultilingualModel
 from livekit.agents.voice import room_io
-import prompts  
+import prompts
+from tools.maps import MapsService
+from tools.search import SearchService
 
 load_dotenv()
 
@@ -19,6 +21,33 @@ class UnParceroAgent(Agent):
         """
         # Usamos la variable importada
         super().__init__(instructions=prompts.AGENT_INSTRUCTIONS)
+        self.maps_service = MapsService()
+        self.search_service = SearchService()
+
+    @function_tool()
+    async def find_place(self, context: RunContext, query: str):
+        """Busca un lugar en Google Maps.
+        Args:
+            query: El nombre del lugar o dirección a buscar.
+        """
+        return self.maps_service.find_place(query)
+
+    @function_tool()
+    async def get_directions(self, context: RunContext, origin: str, destination: str):
+        """Obtiene indicaciones de ruta entre dos lugares.
+        Args:
+            origin: El punto de partida (dirección o nombre del lugar).
+            destination: El destino (dirección o nombre del lugar).
+        """
+        return self.maps_service.get_directions(origin, destination)
+
+    @function_tool()
+    async def google_search(self, context: RunContext, query: str):
+        """Realiza una búsqueda en Google para encontrar información.
+        Args:
+            query: La consulta de búsqueda.
+        """
+        return self.search_service.search(query)
 
     async def on_enter(self):
         """

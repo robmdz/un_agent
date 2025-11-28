@@ -194,3 +194,5 @@ Mientras tanto, la página mostrará placeholders con iconos de usuario hasta qu
 
 ¡Listo! Una vez agregues las fotos, la página se verá profesional y moderna. 🎉
 
+
+

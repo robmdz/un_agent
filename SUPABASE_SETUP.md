@@ -157,3 +157,5 @@ Si necesitas permitir la lectura pública de los datos, puedes descomentar las p
 - Revisa la pestaña **Logs** en Supabase para ver errores
 - Asegúrate de que las credenciales sean correctas
 
+
+

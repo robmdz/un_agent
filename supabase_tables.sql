@@ -56,3 +56,5 @@ CREATE POLICY "Enable insert for all users" ON registrations
 COMMENT ON TABLE feedback IS 'Almacena las respuestas del formulario de retroalimentación de usuarios';
 COMMENT ON TABLE registrations IS 'Almacena los registros de usuarios interesados en nuevas versiones';
 
+
+

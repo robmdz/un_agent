@@ -10,7 +10,7 @@ import '@livekit/components-styles';
 import Button from '../components/button';
 import Modal from '../components/modal';
 import '../styles/voice-agent.css';
-import agentImage from '../assets/WhatsApp Image 2025-11-27 at 10.06.03 PM.png';
+import agentImage from '../assets/agent-orb.png';
 
 /**
  * Barra de controles personalizada para la sala de LiveKit.

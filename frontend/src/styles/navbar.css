@@ -90,6 +90,42 @@
   text-shadow: 0 0 8px rgba(118, 35, 47, 0.6);
 }
 
+/* Special Link - Nueva Versión */
+.navbar-links a.special-link {
+  font-family: 'Poppins', 'Arial Rounded MT Bold', 'Comic Sans MS', sans-serif;
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: #ffffff;
+  background: linear-gradient(135deg, var(--color-secondary) 0%, #a02d3d 100%);
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(118, 35, 47, 0.3);
+  transition: all 0.3s ease;
+  letter-spacing: 0.5px;
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+.navbar-links a.special-link:hover {
+  background: linear-gradient(135deg, #a02d3d 0%, var(--color-secondary) 100%);
+  box-shadow: 0 6px 20px rgba(118, 35, 47, 0.5);
+  transform: translateY(-2px) scale(1.05);
+  color: #ffffff;
+}
+
+[data-theme='dark'] .navbar-links a.special-link:hover {
+  color: #ffffff;
+  text-shadow: 0 0 12px rgba(255, 255, 255, 0.8);
+}
+
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 4px 12px rgba(118, 35, 47, 0.3);
+  }
+  50% {
+    box-shadow: 0 4px 20px rgba(118, 35, 47, 0.6);
+  }
+}
+
 .navbar-right {
   display: flex;
   align-items: center;
@@ -209,5 +245,11 @@
     color: var(--color-text-primary);
     text-decoration: none;
     font-weight: 500;
+  }
+  
+  /* Special link in navbar on mobile */
+  .navbar-links a.special-link {
+    font-size: 0.85rem;
+    padding: 0.4rem 0.8rem;
   }
 }

@@ -2,6 +2,10 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import '../styles/banner.css';
 
+/**
+ * Componente Banner para mostrar anuncios importantes.
+ * Puede ser cerrado por el usuario.
+ */
 const Banner = () => {
   const [isVisible, setIsVisible] = useState(true);
 
@@ -15,8 +19,8 @@ const Banner = () => {
           Regístrate para probar la siguiente versión
         </Link>
       </div>
-      <button 
-        className="banner-close" 
+      <button
+        className="banner-close"
         onClick={() => setIsVisible(false)}
         aria-label="Close announcement"
       >

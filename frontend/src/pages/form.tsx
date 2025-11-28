@@ -2,6 +2,10 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../components/button';
 import '../styles/form.css';
 
+/**
+ * Componente de formulario de retroalimentación.
+ * Recopila opiniones de los usuarios sobre la experiencia con el chatbot.
+ */
 const Form = () => {
   const navigate = useNavigate();
 
@@ -14,9 +18,9 @@ const Form = () => {
   return (
     <div className="page-container">
       <div className="form-container">
-      <h1>Danos tu opinión</h1>
+        <h1>Danos tu opinión</h1>
         <form onSubmit={handleSubmit} className="feedback-form">
-          
+
           {/* Pregunta 1 */}
           <div className="form-group">
             <label>¿Utilizarían este chatbot para ubicarse en la universidad?</label>
@@ -108,7 +112,7 @@ const Form = () => {
           {/* Pregunta 7 */}
           <div className="form-group">
             <label>¿Qué le cambiarías para que la experiencia fuera más rápida o más fácil?</label>
-            <textarea 
+            <textarea
               name="improvements"
               rows={3}
               className="text-input"
@@ -118,7 +122,7 @@ const Form = () => {
           {/* Pregunta 8 */}
           <div className="form-group">
             <label>¿Qué otra información relacionada te gustaría que el chatbot te proporcionara?</label>
-        <textarea 
+            <textarea
               name="other_info"
               rows={3}
               className="text-input"
@@ -126,10 +130,10 @@ const Form = () => {
           </div>
 
           <div className="form-actions">
-          <Button type="submit">Enviar</Button>
-          <Button onClick={() => navigate('/voice-agent')} className="secondary">Volver</Button>
-        </div>
-      </form>
+            <Button type="submit">Enviar</Button>
+            <Button onClick={() => navigate('/voice-agent')} className="secondary">Volver</Button>
+          </div>
+        </form>
       </div>
     </div>
   );

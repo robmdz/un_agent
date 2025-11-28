@@ -3,13 +3,20 @@ import { createPortal } from 'react-dom';
 import Button from './button';
 import '../styles/modal.css';
 
+/**
+ * Propiedades para el componente Modal.
+ */
 interface ModalProps {
-  isOpen: boolean;
-  onClose: () => void;
-  title: string;
-  children: React.ReactNode;
+  isOpen: boolean; // Si el modal está visible
+  onClose: () => void; // Función para cerrar el modal
+  title: string; // Título del modal
+  children: React.ReactNode; // Contenido del modal
 }
 
+/**
+ * Componente Modal reutilizable.
+ * Utiliza React Portal para renderizarse fuera de la jerarquía DOM principal.
+ */
 const Modal: React.FC<ModalProps> = ({ isOpen, onClose, title, children }) => {
   const [isMounted, setIsMounted] = useState(false);
 

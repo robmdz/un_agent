@@ -1,3 +1,7 @@
+/**
+ * Página del equipo.
+ * Muestra información sobre los desarrolladores del proyecto.
+ */
 const Team = () => {
   return (
     <div className="page-container">

@@ -12,6 +12,8 @@ LIVEKIT_URL = os.getenv("LIVEKIT_URL")
 
 app = FastAPI()
 
+# Configuración de CORS para permitir peticiones desde cualquier origen
+# Esto es necesario para que el frontend pueda comunicarse con el backend
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
@@ -22,10 +24,18 @@ app.add_middleware(
 
 @app.get("/getToken")
 async def get_token():
+    """
+    Endpoint para generar un token de acceso a LiveKit.
+    Este token es necesario para que el frontend pueda conectarse a la sala de video/audio.
+    
+    Returns:
+        dict: Un diccionario con el token JWT y la URL de LiveKit.
+              Retorna un error si las credenciales no están configuradas.
+    """
     if not LIVEKIT_API_KEY or not LIVEKIT_API_SECRET:
         return {"error": "LiveKit credentials not set"}
     
-    # Create token
+    # Crear token de acceso con permisos para unirse a la sala
     token = api.AccessToken(LIVEKIT_API_KEY, LIVEKIT_API_SECRET) \
         .with_identity("user_identity") \
         .with_name("User") \

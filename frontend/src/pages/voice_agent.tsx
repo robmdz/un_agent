@@ -3,19 +3,19 @@ import { useNavigate } from 'react-router-dom';
 import {
   LiveKitRoom,
   RoomAudioRenderer,
-  VoiceAssistantControlBar,
   useRoomContext,
   useLocalParticipant,
-  useTrackToggle,
-  TrackToggle,
 } from '@livekit/components-react';
-import { Track } from 'livekit-client';
 import '@livekit/components-styles';
 import Button from '../components/button';
 import Modal from '../components/modal';
 import '../styles/voice-agent.css';
+import agentImage from '../assets/WhatsApp Image 2025-11-27 at 10.06.03 PM.png';
 
-// Componente personalizado de controles
+/**
+ * Barra de controles personalizada para la sala de LiveKit.
+ * Permite silenciar el micrófono y desconectarse.
+ */
 const CustomControlBar = ({ onDisconnect }: { onDisconnect: () => void }) => {
   const room = useRoomContext();
   const { isMicrophoneEnabled, localParticipant } = useLocalParticipant();
@@ -29,7 +29,7 @@ const CustomControlBar = ({ onDisconnect }: { onDisconnect: () => void }) => {
 
   return (
     <div className="custom-control-bar">
-      <button 
+      <button
         className={`control-button mic-button ${isMicrophoneEnabled ? 'active' : 'muted'}`}
         onClick={toggleMicrophone}
         title={isMicrophoneEnabled ? "Silenciar micrófono" : "Activar micrófono"}
@@ -41,7 +41,7 @@ const CustomControlBar = ({ onDisconnect }: { onDisconnect: () => void }) => {
         )}
       </button>
 
-      <button 
+      <button
         className="control-button disconnect-button"
         onClick={() => {
           room?.disconnect();
@@ -55,7 +55,10 @@ const CustomControlBar = ({ onDisconnect }: { onDisconnect: () => void }) => {
   );
 };
 
-// Component to visualize agent status and connection
+/**
+ * Visualizador del estado del agente.
+ * Muestra una animación basada en el estado de conexión y actividad de voz.
+ */
 const AgentVisualizer = () => {
   const room = useRoomContext();
   const { isMicrophoneEnabled } = useLocalParticipant();
@@ -63,7 +66,7 @@ const AgentVisualizer = () => {
 
   useEffect(() => {
     if (!room) return;
-    
+
     const updateState = () => {
       if (room.state === 'connected') {
         // Simple logic to determine state
@@ -89,9 +92,11 @@ const AgentVisualizer = () => {
   return (
     <div className="agent-content">
       <div className="visualizer-container">
-        <div className={`agent-orb ${agentState}`}></div>
+        <div className={`agent-orb ${agentState}`}>
+          <img src={agentImage} alt="UNparcero Agent" className="agent-image" />
+        </div>
       </div>
-      
+
       <div className="status-indicator">
         {agentState === 'disconnected' && 'Desconectado'}
         {agentState === 'connected' && 'En línea'}
@@ -102,6 +107,10 @@ const AgentVisualizer = () => {
   );
 };
 
+/**
+ * Página principal del agente de voz.
+ * Maneja la conexión con LiveKit, la obtención del token y la interfaz de usuario de la llamada.
+ */
 const VoiceAgent = () => {
   const [token, setToken] = useState('');
   const [url, setUrl] = useState('');
@@ -121,7 +130,7 @@ const VoiceAgent = () => {
       try {
         const response = await fetch('http://localhost:8000/getToken');
         if (!response.ok) {
-            throw new Error('Failed to fetch token');
+          throw new Error('Failed to fetch token');
         }
         const data = await response.json();
         setToken(data.token);
@@ -134,20 +143,22 @@ const VoiceAgent = () => {
   }, []);
 
   if (error) {
-      return (
-        <div className="page-container" style={{ textAlign: 'center' }}>
-            <h1 style={{ color: 'var(--color-secondary)' }}>Error de Conexión</h1>
-            <p>{error}</p>
-            <Button onClick={() => window.location.reload()}>Reintentar</Button>
-        </div>
-      );
+    return (
+      <div className="page-container" style={{ textAlign: 'center' }}>
+        <h1 style={{ color: 'var(--color-secondary)' }}>Error de Conexión</h1>
+        <p>{error}</p>
+        <Button onClick={() => window.location.reload()}>Reintentar</Button>
+      </div>
+    );
   }
 
   if (token === '') {
     return (
       <div className="page-container" style={{ textAlign: 'center', marginTop: '4rem' }}>
         <div className="visualizer-container">
-            <div className="agent-orb"></div>
+          <div className="agent-orb">
+            <img src={agentImage} alt="UNparcero Agent" className="agent-image" />
+          </div>
         </div>
         <h1 style={{ marginTop: '2rem', fontSize: '1.5rem' }}>Conectando con UNparcero...</h1>
       </div>
@@ -156,14 +167,14 @@ const VoiceAgent = () => {
 
   return (
     <div className="page-container">
-      <Modal 
-        isOpen={showModal} 
-        onClose={() => setShowModal(false)} 
+      <Modal
+        isOpen={showModal}
+        onClose={() => setShowModal(false)}
         title="¡Bienvenido a UNparcero!"
       >
         <p>Cuando termines tu consulta, por favor presiona el botón rojo de <strong>'Desconectar'</strong> y llena el breve formulario de opinión para ayudarnos a mejorar.</p>
       </Modal>
-      
+
       <div className="voice-agent-container">
         <LiveKitRoom
           video={false}
@@ -174,20 +185,20 @@ const VoiceAgent = () => {
           style={{ height: '100%', width: '100%' }}
           onDisconnected={() => navigate('/form')}
         >
-          <div style={{ 
-            position: 'relative', 
-            zIndex: 2, 
-            height: '100%', 
-            display: 'flex', 
-            flexDirection: 'column', 
+          <div style={{
+            position: 'relative',
+            zIndex: 2,
+            height: '100%',
+            display: 'flex',
+            flexDirection: 'column',
             justifyContent: 'space-between',
-            padding: '2rem 0',
+            padding: '1.5rem 0',
             overflow: 'visible' // Asegurar que nada corte el contenido
           }}>
             <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-               <AgentVisualizer />
+              <AgentVisualizer />
             </div>
-            <div style={{ display: 'flex', justifyContent: 'center', width: '100%', paddingBottom: '1rem' }}>
+            <div style={{ display: 'flex', justifyContent: 'center', width: '100%', paddingBottom: '2.5rem' }}>
               <CustomControlBar onDisconnect={() => navigate('/form')} />
             </div>
           </div>

@@ -2,6 +2,10 @@ import { useNavigate } from 'react-router-dom';
 import Button from '../components/button';
 import '../styles/form.css';
 
+/**
+ * Página de registro para nuevos usuarios.
+ * Permite a los usuarios inscribirse para probar nuevas versiones.
+ */
 const Register = () => {
   const navigate = useNavigate();
 
@@ -18,29 +22,29 @@ const Register = () => {
         <p style={{ textAlign: 'center', color: 'var(--color-text-secondary)', marginBottom: '2rem' }}>
           Sé el primero en probar las nuevas funciones de UNparcero.
         </p>
-        
+
         <form onSubmit={handleSubmit} className="feedback-form">
           <div className="form-group">
             <label htmlFor="name">Nombre completo</label>
-            <input 
-              type="text" 
+            <input
+              type="text"
               id="name"
               name="name"
               className="text-input"
               placeholder="Tu nombre"
-              required 
+              required
             />
           </div>
 
           <div className="form-group">
             <label htmlFor="email">Correo electrónico institucional</label>
-            <input 
-              type="email" 
+            <input
+              type="email"
               id="email"
               name="email"
               className="text-input"
               placeholder="usuario@unal.edu.co"
-              required 
+              required
             />
           </div>
 
@@ -68,7 +72,7 @@ const Register = () => {
 
           <div className="form-group">
             <label htmlFor="interests">¿Qué te gustaría ver en la próxima versión?</label>
-            <textarea 
+            <textarea
               id="interests"
               name="interests"
               rows={3}
@@ -81,9 +85,9 @@ const Register = () => {
             <Button type="submit" variant="primary" style={{ width: '100%' }}>
               Registrarme
             </Button>
-            <Button 
-              type="button" 
-              variant="secondary" 
+            <Button
+              type="button"
+              variant="secondary"
               onClick={() => navigate('/')}
               style={{ width: '100%' }}
             >

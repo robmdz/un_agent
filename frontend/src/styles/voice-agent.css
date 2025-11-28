@@ -1,13 +1,16 @@
 .voice-agent-container {
   position: relative;
   width: 100%;
-  max-width: 800px;
-  height: 650px;
+  max-width: 700px;
+  height: 600px;
   margin: 2rem auto;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  background-color: var(--color-background);
+  border-radius: 24px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3), 0 0 20px rgba(118, 35, 47, 0.2);
 }
 
 .voice-agent-container:hover {
@@ -35,19 +38,30 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 200px;
+  height: 180px;
   width: 100%;
 }
 
 /* Custom pulsing animation */
 .agent-orb {
-  width: 120px;
-  height: 120px;
+  width: 160px;
+  height: 160px;
   border-radius: 50%;
-  background: radial-gradient(circle at 30% 30%, var(--color-secondary), #4a151d);
+  background: transparent;
   box-shadow: 0 0 30px var(--color-secondary);
   position: relative;
   animation: float 6s ease-in-out infinite;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.agent-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
 }
 
 .agent-orb::after {
@@ -90,14 +104,15 @@
 .custom-control-bar {
   display: flex;
   gap: 1.5rem;
-  padding: 1rem 2rem;
+  padding: 0.5rem 1.5rem;
   position: relative;
   z-index: 10;
   /* Removed background and backdrop-filter to show full buttons clearly */
   background: transparent;
   border: none;
   box-shadow: none;
-  margin-top: -2rem; /* Move up slightly */
+  margin-top: 0;
+  margin-bottom: 1.5rem; /* Add bottom margin to move buttons up */
 }
 
 .control-button {
@@ -178,18 +193,24 @@
 /* Responsive */
 @media (max-width: 768px) {
   .voice-agent-container {
-    height: 450px;
+    height: 500px;
+    max-width: 90%;
     margin: 1rem auto;
   }
   
+  .visualizer-container {
+    height: 140px;
+  }
+  
   .agent-orb {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
   }
   
   .custom-control-bar {
     padding: 0.75rem 1.5rem;
     gap: 1rem;
+    margin-bottom: 2rem;
   }
   
   .control-button {

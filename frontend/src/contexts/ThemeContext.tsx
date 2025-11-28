@@ -1,12 +1,20 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, type ReactNode } from 'react';
 
+/**
+ * Definición del tipo para el contexto del tema.
+ */
 interface ThemeContextType {
-  theme: 'dark' | 'light';
-  toggleTheme: () => void;
+  theme: 'dark' | 'light'; // Tema actual
+  toggleTheme: () => void; // Función para alternar el tema
 }
 
 const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
 
+/**
+ * Hook personalizado para usar el contexto del tema.
+ * @returns {ThemeContextType} El contexto del tema.
+ * @throws {Error} Si se usa fuera de un ThemeProvider.
+ */
 export const useTheme = () => {
   const context = useContext(ThemeContext);
   if (!context) {
@@ -19,6 +27,10 @@ interface ThemeProviderProps {
   children: ReactNode;
 }
 
+/**
+ * Proveedor del contexto del tema.
+ * Maneja el estado del tema y lo persiste en localStorage.
+ */
 export const ThemeProvider = ({ children }: ThemeProviderProps) => {
   const [theme, setTheme] = useState<'dark' | 'light'>(() => {
     const savedTheme = localStorage.getItem('theme');

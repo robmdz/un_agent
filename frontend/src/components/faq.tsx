@@ -1,6 +1,9 @@
 import { useState } from 'react';
 import '../styles/faq.css';
 
+/**
+ * Estructura de datos para un ítem de FAQ.
+ */
 interface FAQItem {
   question: string;
   answer: string;
@@ -25,6 +28,10 @@ const faqData: FAQItem[] = [
   }
 ];
 
+/**
+ * Componente de Preguntas Frecuentes (FAQ).
+ * Muestra una lista de preguntas desplegables.
+ */
 const FAQ = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
@@ -39,11 +46,11 @@ const FAQ = () => {
       </div>
       <div className="faq-list">
         {faqData.map((item, index) => (
-          <div 
-            key={index} 
+          <div
+            key={index}
             className={`faq-item ${activeIndex === index ? 'active' : ''}`}
           >
-            <button 
+            <button
               className="faq-question"
               onClick={() => toggleIndex(index)}
               aria-expanded={activeIndex === index}

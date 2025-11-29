@@ -9,4 +9,4 @@ livekit-agents[silero,turn-detector]~=1.2
 livekit-plugins-noise-cancellation~=0.2
 livekit-agents[openai]~=1.2
 googlemaps
-googlesearch-python
+google-search-results

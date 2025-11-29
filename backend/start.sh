@@ -1,8 +1,8 @@
 #!/bin/bash
 
-# El agente de LiveKit está desplegado en LiveKit Cloud
-# Este script solo inicia la API FastAPI para generar tokens
+# Este script se ejecuta en LiveKit Cloud
+# Inicia el agente de voz que maneja las interacciones con los usuarios
 
-echo "Iniciando API FastAPI..."
-uvicorn main:app --host 0.0.0.0 --port ${PORT:-8080}
+echo "Iniciando LiveKit Agent..."
+python agent.py start
 

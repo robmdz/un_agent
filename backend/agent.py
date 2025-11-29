@@ -26,18 +26,22 @@ class UnParceroAgent(Agent):
 
     @function_tool()
     async def find_place(self, context: RunContext, query: str):
-        """Busca un lugar en Google Maps.
+        """Busca la ubicación exacta de un lugar, edificio o bloque en Google Maps.
+        Usa esto cuando el usuario pregunte '¿Dónde queda...?' o '¿Ubicación de...?'.
         Args:
-            query: El nombre del lugar o dirección a buscar.
+            query: El nombre del lugar, edificio o bloque a buscar (ej: "Bloque 41", "Biblioteca").
         """
+        # Añadimos contexto para mejorar la búsqueda si es muy corta
+        if "medellín" not in query.lower() and "unal" not in query.lower():
+            query = f"{query} Universidad Nacional Colombia Medellín"
         return self.maps_service.find_place(query)
 
     @function_tool()
     async def get_directions(self, context: RunContext, origin: str, destination: str):
-        """Obtiene indicaciones de ruta entre dos lugares.
+        """Obtiene indicaciones paso a paso y tiempo de ruta entre dos puntos.
         Args:
-            origin: El punto de partida (dirección o nombre del lugar).
-            destination: El destino (dirección o nombre del lugar).
+            origin: Punto de partida.
+            destination: Punto de llegada.
         """
         return self.maps_service.get_directions(origin, destination)
 

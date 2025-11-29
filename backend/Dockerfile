@@ -15,6 +15,9 @@ COPY . .
 # Make start script executable
 RUN chmod +x start.sh
 
+# Download required model files for the turn detector
+RUN python agent.py download-files
+
 # Environment variables will be provided by Cloud Run
 ENV PORT=8080
 

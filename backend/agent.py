@@ -69,37 +69,65 @@ async def entrypoint(ctx: JobContext):
     Args:
         ctx (JobContext): Contexto del trabajo que contiene información sobre la sala y el proceso.
     """
-    await ctx.connect()
+    import logging
+    import asyncio
     
-    # Configuración de la sesión del agente con los modelos de IA necesarios
-    session = AgentSession(
-        vad=silero.VAD.load(), # Detección de actividad de voz
-        turn_detection=MultilingualModel(), # Modelo para detectar turnos de habla
-        stt=openai.STT(model="whisper-1"), # Speech-to-Text usando Whisper
-        llm=openai.LLM(model="gpt-4o-mini"), # Large Language Model para generar respuestas
-        tts=openai.TTS(
-            model="tts-1",
-            voice="ash",
-        ), # Text-to-Speech para sintetizar la voz
-    )
+    logger = logging.getLogger("agent")
+    logger.info("Starting agent entrypoint")
+    
+    try:
+        await ctx.connect()
+        logger.info("Connected to LiveKit room")
+        
+        # Configuración de la sesión del agente con los modelos de IA necesarios
+        session = AgentSession(
+            vad=silero.VAD.load(), # Detección de actividad de voz
+            turn_detection=MultilingualModel(), # Modelo para detectar turnos de habla
+            stt=openai.STT(model="whisper-1"), # Speech-to-Text usando Whisper
+            llm=openai.LLM(model="gpt-4o-mini"), # Large Language Model para generar respuestas
+            tts=openai.TTS(
+                model="tts-1",
+                voice="ash",
+            ), # Text-to-Speech para sintetizar la voz
+        )
+        logger.info("Agent session configured successfully")
 
-    @ctx.room.on("participant_disconnected")
-    def on_participant_disconnected(participant):
-        if len(ctx.room.remote_participants) == 0:
-            print("Last participant left, disconnecting agent")
-            import asyncio
-            asyncio.create_task(ctx.disconnect())
-    
-    # Inicia la sesión del agente en la sala
-    await session.start(
-        agent=UnParceroAgent(),
-        room=ctx.room,
-        room_options=room_io.RoomOptions(
-            audio_input=room_io.AudioInputOptions(
-                noise_cancellation=noise_cancellation.BVC(), # Cancelación de ruido
+        # Track if we're shutting down
+        shutdown_event = asyncio.Event()
+
+        @ctx.room.on("participant_disconnected")
+        def on_participant_disconnected(participant):
+            if len(ctx.room.remote_participants) == 0:
+                logger.info("Last participant left, scheduling disconnect")
+                if not shutdown_event.is_set():
+                    shutdown_event.set()
+                    asyncio.create_task(_graceful_disconnect(ctx, logger))
+        
+        # Inicia la sesión del agente en la sala
+        await session.start(
+            agent=UnParceroAgent(),
+            room=ctx.room,
+            room_options=room_io.RoomOptions(
+                audio_input=room_io.AudioInputOptions(
+                    noise_cancellation=noise_cancellation.BVC(), # Cancelación de ruido
+                ),
             ),
-        ),
-    )
+        )
+        logger.info("Agent session started successfully")
+        
+    except Exception as e:
+        logger.error(f"Error in agent entrypoint: {e}", exc_info=True)
+        raise
+
+async def _graceful_disconnect(ctx: JobContext, logger):
+    """Helper function to gracefully disconnect from the room"""
+    try:
+        await asyncio.sleep(1)  # Give a moment for cleanup
+        if ctx.room.isconnected():
+            logger.info("Disconnecting from room")
+            await ctx.disconnect()
+    except Exception as e:
+        logger.warning(f"Error during graceful disconnect: {e}")
     
 if __name__ == "__main__":
     cli.run_app(WorkerOptions(entrypoint_fnc=entrypoint))
